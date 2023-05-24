@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Oculus.Interaction;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,10 @@ namespace aptXR.OpeningScene
         [Header("OpeningScene Information")]
         [SerializeField]
         private LevelInformation levelInformation;
+
+        [Header("VirtualTags")]
+        [SerializeField]
+        private VirtualTagModels _VirtualTagsModel;
 
 
         [Header("Level Audio")]
@@ -37,7 +42,7 @@ namespace aptXR.OpeningScene
             // add audio trigger
             MusicHandle();
 
-
+            
 
             // set the Data information for first level usage   
             levelInformation.Usage += 1;     
@@ -88,8 +93,22 @@ namespace aptXR.OpeningScene
                 Destroy(gameObject);
             }
 
+
+            // saves all data from level information
+            initialSave();
+
         }
 
+
+        public void initialSave()
+        {
+            OpenSceneDataReadWrite dataReadWrite = new OpenSceneDataReadWrite();
+            dataReadWrite.LevelInformation = levelInformation;
+            dataReadWrite.VirtualTagModels = _VirtualTagsModel;
+            dataReadWrite.SaveData();
+
+
+        }
     }
 }
 

@@ -19,6 +19,7 @@
 
 # Text Mesh Pro package
 /[Aa]ssets/TextMesh Pro/*
+/[Aa]ssets/[Pp]refab*
 
 #Project settings pipeline
 /[Aa]ssets/Settings/*
