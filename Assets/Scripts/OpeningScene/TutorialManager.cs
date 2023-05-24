@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using System;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -52,11 +52,11 @@ namespace aptXR.OpeningScene {
             {
                 _VideoPlayer.clip = _VideoClips[0];
             }
-            catch (System.IndexOutOfRangeException)
+            catch (IndexOutOfRangeException)
             {
                 Debug.LogWarning("The VideoClip Index has not been Assigned");
             }
-            catch (System.NullReferenceException)
+            catch (NullReferenceException)
             {
                 Debug.LogWarning("No Reference to Video Player");
             }
@@ -68,17 +68,15 @@ namespace aptXR.OpeningScene {
             {
                 _VideoPlayer.clip = _VideoClips[1];
             }
-            catch (System.IndexOutOfRangeException)
+            catch (IndexOutOfRangeException)
             {
                 Debug.LogWarning("The VideoClip Index has not been Assigned");
             }
-            catch (System.NullReferenceException)
+            catch (NullReferenceException)
             {
                 Debug.LogWarning("No Reference to Video Player");
             }
         }
-
-
 
 
     }

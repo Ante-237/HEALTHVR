@@ -1,3 +1,5 @@
+using Oculus.Interaction;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -12,12 +14,18 @@ namespace aptXR.OpeningScene
         private LevelInformation levelInformation;
 
 
-        [Header("FadingAnimation Control")]
+        [Header("Level Audio")]
         [SerializeField]
+        private AudioClip[] OpeningLevelAudio = new AudioClip[2];
+
+
+        [Header("FadingAnimation Control")]
         [Tooltip("Provide the Fading information Script Reference to control the animation Fading in and Out")]
+        [SerializeField]
         private FadingAnimation _fadingAnimation;
 
 
+        private AudioTrigger _AudioTrigger;
 
         public static LevelManager Instance
         {
@@ -26,6 +34,11 @@ namespace aptXR.OpeningScene
 
         private void Start()
         {
+            // add audio trigger
+            MusicHandle();
+
+
+
             // set the Data information for first level usage   
             levelInformation.Usage += 1;     
             SetupUsage();
@@ -44,16 +57,20 @@ namespace aptXR.OpeningScene
         }
 
 
-
         // play the music to play when scene starts
         void MusicHandle()
         {
-
+            gameObject.AddComponent<AudioSource>();
+            _AudioTrigger = gameObject.AddComponent<AudioTrigger>().GetComponent<AudioTrigger>();
+            _AudioTrigger.InjectAudioSource(GetComponent<AudioSource>());
+            _AudioTrigger.InjectAudioClips(OpeningLevelAudio);
+            _AudioTrigger.InjectOptionalPlayOnStart(true);
+            _AudioTrigger.Loop = true;
         }
 
 
         // play the fading in animation when scene starts
-        void FadinginAnimation()
+        public void FadingOutAnimation()
         {
             _fadingAnimation.FadeAnimationOut();
         }

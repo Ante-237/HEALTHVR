@@ -12,6 +12,11 @@ namespace aptXR.OpeningScene
         [SerializeField] 
         private OVRHand LeftHand;
 
+        [SerializeField]
+        private Controller RightController;
+        [SerializeField]
+        private Controller LeftController;
+
 
         private bool _isHands = false;
         private bool _isControllers = true;
@@ -24,7 +29,7 @@ namespace aptXR.OpeningScene
 
         public bool IsControllers
         {
-            get { return IsControllers; }
+            get { return _isControllers; }
         }
 
         private void Update()
@@ -40,8 +45,9 @@ namespace aptXR.OpeningScene
             {
                 _isHands = true;
                 _isControllers = false;
+                
             }
-            else
+            else if(RightController.IsConnected && LeftController.IsConnected)
             {
                 _isControllers = true;
                 _isHands = false;
