@@ -1283,7 +1283,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelInformation: {fileID: 11400000, guid: c97cc9022b98dc34ba5187bdccdaa3e4, type: 2}
   _VirtualTagsModel: {fileID: 11400000, guid: b3a7f87eba39e3e49a6768bec2ae32b9, type: 2}
-  OpeningLevelAudio: []
+  OpeningLevelAudio:
+  - {fileID: 8300000, guid: 2e8c64b9ae7ad3d4e97ca046d8ae7e96, type: 3}
+  - {fileID: 8300000, guid: 8e124b37e063a69418032bb39b6f7d4f, type: 3}
   _fadingAnimation: {fileID: 1283811784}
 --- !u!4 &1283811788
 Transform:

@@ -1,4 +1,5 @@
 
+using System.IO.Compression;
 using UnityEditor;
 using UnityEngine;
 
@@ -31,10 +32,6 @@ public class AssetImportStandards : AssetPostprocessor
             modelImporter.importLights = false;
         }
     }
-
-
-
-
 
     // presets for any imported texture. 
     public void OnPreprocessTexture()
@@ -72,6 +69,7 @@ public class AssetImportStandards : AssetPostprocessor
     // Mesh renderer import settings by default for project. 
     private void OnPostprocessMeshHierarchy(UnityEngine.GameObject root)
     {
+      
         MeshRenderer mesh =  root.GetComponent<MeshRenderer>();
 
         if (mesh.receiveShadows)
@@ -90,4 +88,18 @@ public class AssetImportStandards : AssetPostprocessor
             mesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
         }
     }
+
+    // Default import settings for audio formats.
+
+    private void OnPreprocessAudio()
+    {
+        if (assetPath.Contains("mono"))
+        {
+            AudioImporter audioImporter = (AudioImporter)assetImporter;
+            audioImporter.forceToMono = true;
+            audioImporter.loadInBackground = true;
+        }
+    }
+
+
 }
