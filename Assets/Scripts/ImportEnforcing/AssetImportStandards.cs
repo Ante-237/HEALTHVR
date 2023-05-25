@@ -1,6 +1,6 @@
 
 using UnityEditor;
-
+using UnityEngine;
 
 public class AssetImportStandards : AssetPostprocessor
 {
@@ -68,4 +68,26 @@ public class AssetImportStandards : AssetPostprocessor
 
     }
 
+
+    // Mesh renderer import settings by default for project. 
+    private void OnPostprocessMeshHierarchy(UnityEngine.GameObject root)
+    {
+        MeshRenderer mesh =  root.GetComponent<MeshRenderer>();
+
+        if (mesh.receiveShadows)
+        {
+            mesh.receiveShadows = false;
+        }
+
+
+        if (mesh.lightProbeUsage == UnityEngine.Rendering.LightProbeUsage.BlendProbes)
+        {
+            mesh.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.Off;
+        }
+
+        if(mesh.shadowCastingMode == UnityEngine.Rendering.ShadowCastingMode.On)
+        {
+            mesh.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        }
+    }
 }
