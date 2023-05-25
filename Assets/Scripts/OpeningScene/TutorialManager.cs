@@ -25,6 +25,9 @@ namespace aptXR.OpeningScene {
 
 
 
+
+
+
         void Start ()
         {
             InvokeRepeating("VerifyControlType", _StartTime, _RepeatTime);
