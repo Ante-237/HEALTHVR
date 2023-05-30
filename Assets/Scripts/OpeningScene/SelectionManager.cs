@@ -31,7 +31,8 @@ namespace aptXR.OpeningScene {
 
         private void Start()
         {
-          _SceneLoader = gameObject.AddComponent<SceneLoader>().GetComponent<SceneLoader>();
+            gameObject.AddComponent<SceneLoader>();
+            _SceneLoader = gameObject.GetComponent<SceneLoader>();
             
         }
 

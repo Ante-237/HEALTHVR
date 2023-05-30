@@ -1,11 +1,11 @@
-
-using System.IO.Compression;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
 
 namespace aptXR
 {
+
     public class AssetImportStandards : AssetPostprocessor
     {
 
@@ -62,10 +62,12 @@ namespace aptXR
                 textureImporter.textureCompression = TextureImporterCompression.CompressedLQ;
             }
 
-            if (textureImporter.textureType == TextureImporterType.Default)
+            if(textureImporter.textureType == TextureImporterType.NormalMap)
             {
-                textureImporter.textureType = TextureImporterType.NormalMap;
+                textureImporter.textureType = TextureImporterType.Default;
             }
+
+
 
         }
 
@@ -107,5 +109,7 @@ namespace aptXR
 
 
     }
+
 }
 
+#endif
