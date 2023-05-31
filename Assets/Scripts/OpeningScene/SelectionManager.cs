@@ -22,9 +22,9 @@ namespace aptXR.OpeningScene {
 
         [Header("Controller Vibrations")]
         [SerializeField]
-        private float VibrationFrequency = 0.5f;
+        private float VibrationFrequency = 0.1f;
         [SerializeField]
-        private float VibrationAmplitude = 0.5f;
+        private float VibrationAmplitude = 0.1f;
 
         // provides instance of the sceneLoader
         private SceneLoader _SceneLoader;

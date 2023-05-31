@@ -29,7 +29,7 @@ namespace aptXR.OpeningScene
         public Vector3 LeftPosition;
         public Vector3 FloorPosition;
 
-
+        [Header("Mesh Masterials ")]
         MeshRenderer RightObject_Renderer;
         MeshRenderer LeftObject_Renderer;
         MeshRenderer FloorObject_Renderer;
@@ -99,9 +99,9 @@ namespace aptXR.OpeningScene
                 if(FloorObject != null)
                 {
                     GameObject floorObject = Instantiate(FloorObject.Asset, FloorPosition, Quaternion.identity) as GameObject;
-                    FloorObject_Renderer = floorObject.GetComponent<MeshRenderer>();
+                    FloorObject_Renderer = floorObject?.GetComponent<MeshRenderer>();
 
-                    if(FloorMaterial != null)
+                    if(FloorMaterial != null && FloorObject_Renderer != null)
                     {
                         FloorObject_Renderer.material = FloorMaterial.Asset as Material;
                     }
@@ -109,8 +109,6 @@ namespace aptXR.OpeningScene
 
                 FirstRun = false;
             }
-
-  
          
         }
 
