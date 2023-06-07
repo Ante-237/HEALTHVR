@@ -71,8 +71,4 @@ public class OpeningScene : MonoBehaviour
     }
 
 
-    async void Fishing()
-    {
-      
-    }
 }

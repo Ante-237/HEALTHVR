@@ -1,6 +1,7 @@
 using Oculus.Interaction.Samples;
 using System;
 using UnityEngine;
+using UnityEngine.Android;
 
 namespace aptXR.OpeningScene {
     public class SelectionManager : MonoBehaviour
@@ -32,8 +33,7 @@ namespace aptXR.OpeningScene {
         private void Start()
         {
             gameObject.AddComponent<SceneLoader>();
-            _SceneLoader = gameObject.GetComponent<SceneLoader>();
-            
+            _SceneLoader = gameObject.GetComponent<SceneLoader>();          
         }
 
         private void Update()
@@ -63,7 +63,20 @@ namespace aptXR.OpeningScene {
             }
         }
 
+        // loading with poking
+        public void NewUser()
+        {
+            Invoke("LoadTutorialScene", WaitTime);
+        }
+
+        public void oldUser()
+        {
+
+            Invoke("LoadLoginScene", WaitTime);
+        }
+
         //Loads the login scene by referencing through the scene names
+        // TODO : change to match the right scene to load
         public void LoadLoginScene()
         {
             try
@@ -79,12 +92,13 @@ namespace aptXR.OpeningScene {
         }
 
         //loads master tutorial scene
+        // TODO : change to match the right scene loaded
         public void LoadTutorialScene()
         {
             try
             {
                 LevelManager.Instance.FadingOutAnimation();
-                _SceneLoader.Load(_SceneNames.AllScenes[2]);
+                _SceneLoader.Load(_SceneNames.AllScenes[0]);
             }catch(IndexOutOfRangeException)
             {
                 Debug.LogWarning("The SceneName Index Tutorials Has not been Assigned");

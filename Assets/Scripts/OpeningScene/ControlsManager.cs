@@ -21,6 +21,8 @@ namespace aptXR.OpeningScene
         private bool _isHands = false;
         private bool _isControllers = true;
 
+        private float waitTime = 5.0f;
+
 
         public bool IsHands
         {
@@ -32,9 +34,11 @@ namespace aptXR.OpeningScene
             get { return _isControllers; }
         }
 
-        private void Update()
+       
+
+        private void Start()
         {
-            CheckIfHands();
+            InvokeRepeating("CheckIfHands", 0.5f, 1.0f);
         }
 
 

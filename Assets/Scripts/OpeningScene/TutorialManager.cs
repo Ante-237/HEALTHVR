@@ -15,6 +15,15 @@ namespace aptXR.OpeningScene {
         [SerializeField]
         public VideoClip[] _VideoClips = new VideoClip[2];
 
+
+        [Header("Tutorials Controller")]
+        [SerializeField] private GameObject Abutton;
+        [SerializeField] private GameObject Bbutton;
+
+        [Header("Tutorials Hands ")]
+        [SerializeField] private GameObject RightHand;
+        [SerializeField] private GameObject LeftHand;
+
         [Header("TutorialManager")]
         [SerializeField]
         private ControlsManager _ControlsManager;
@@ -48,12 +57,22 @@ namespace aptXR.OpeningScene {
                 }
             }
         }
+        
 
+
+
+
+        /// <summary>
+        /// tutorioals below for what tutorials video to show or play
+        /// </summary>
         void SetControllerVideo()
         {
             try
             {
                 _VideoPlayer.clip = _VideoClips[0];
+
+                switchButtonTutorial(true);
+                switchHandTutorials(false);
             }
             catch (IndexOutOfRangeException)
             {
@@ -70,6 +89,8 @@ namespace aptXR.OpeningScene {
             try
             {
                 _VideoPlayer.clip = _VideoClips[1];
+                switchButtonTutorial(false);
+                switchHandTutorials(true);
             }
             catch (IndexOutOfRangeException)
             {
@@ -79,6 +100,19 @@ namespace aptXR.OpeningScene {
             {
                 Debug.LogWarning("No Reference to Video Player");
             }
+        }
+
+
+        void switchButtonTutorial(bool value)
+        {
+            Abutton.SetActive(value);
+            Bbutton.SetActive(value);
+        }
+
+        void switchHandTutorials(bool value)
+        {
+            RightHand.SetActive(value);
+            LeftHand.SetActive(value);
         }
 
 
