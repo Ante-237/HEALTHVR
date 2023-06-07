@@ -98,7 +98,7 @@ namespace aptXR.OpeningScene {
             try
             {
                 LevelManager.Instance.FadingOutAnimation();
-                _SceneLoader.Load(_SceneNames.AllScenes[0]);
+                _SceneLoader.Load(_SceneNames.AllScenes[2]);
             }catch(IndexOutOfRangeException)
             {
                 Debug.LogWarning("The SceneName Index Tutorials Has not been Assigned");

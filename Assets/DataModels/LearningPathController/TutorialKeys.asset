@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f77870534d97a646b7b1cbbe4b0d0e4, type: 3}
-  m_Name: SceneNames
+  m_Script: {fileID: 11500000, guid: 6f57552a473b2f04297ec648dc3b9f31, type: 3}
+  m_Name: TutorialKeys
   m_EditorClassIdentifier: 
-  AllScenes:
-  - OpeningScene
-  - MasterMenu
-  - LearningPath
-  - LearnPathController
+  TimesPressed: 00000000000000000000000000000000
