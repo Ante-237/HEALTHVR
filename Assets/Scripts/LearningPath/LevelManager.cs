@@ -26,7 +26,7 @@ namespace aptXR.LearningPath
             if (OVRInput.Get(OVRInput.Button.One))
             {
                 LoadNextLevel();
-                OVRInput.SetControllerVibration(0.2f, 0.1f, OVRInput.Controller.RTouch);
+               // OVRInput.SetControllerVibration(0.2f, 0.1f, OVRInput.Controller.RTouch);
             }
         }
         

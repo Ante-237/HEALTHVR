@@ -17,3 +17,6 @@ MonoBehaviour:
   - MasterMenu
   - LearningPath
   - LearnPathController
+  - LearningPathControllerPick
+  - LearnPathHands
+  - LoginScene

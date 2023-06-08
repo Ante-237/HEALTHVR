@@ -134,7 +134,7 @@ namespace aptXR.LearningPathController
         {
             if(canLoadNextScene)
             {
-                sceneLoader.Load(sceneNames.AllScenes[1]);
+                sceneLoader.Load(sceneNames.AllScenes[4]);
             }
             
         }

@@ -38,7 +38,7 @@ namespace aptXR.OpeningScene
 
         private void Start()
         {
-            InvokeRepeating("CheckIfHands", 0.5f, 1.0f);
+            InvokeRepeating("CheckIfHands", 0.5f, 0.5f);
         }
 
 

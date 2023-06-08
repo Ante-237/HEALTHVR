@@ -33,12 +33,14 @@ namespace aptXR.OpeningScene {
         private void Start()
         {
             gameObject.AddComponent<SceneLoader>();
-            _SceneLoader = gameObject.GetComponent<SceneLoader>();          
+            _SceneLoader = gameObject.GetComponent<SceneLoader>();
+           // InvokeRepeating("SelectionWithController", 0.1f, 0.2f);
         }
 
         private void Update()
         {
             SelectionWithController();
+            
         }
 
 
@@ -47,14 +49,14 @@ namespace aptXR.OpeningScene {
         {
             if (_ControlsManager.IsControllers)
             {
-                if (OVRInput.Get(OVRInput.Button.One))
+                if (OVRInput.GetDown(OVRInput.Button.One))
                 {
                     OVRInput.SetControllerVibration(VibrationFrequency, VibrationAmplitude, OVRInput.Controller.RTouch);
                    
                     Invoke("LoadLoginScene", WaitTime);
                 }
 
-                if (OVRInput.Get(OVRInput.Button.Two))
+                if (OVRInput.GetDown(OVRInput.Button.Two))
                 {
                     OVRInput.SetControllerVibration(VibrationFrequency, VibrationAmplitude, OVRInput.Controller.LTouch);
                   
