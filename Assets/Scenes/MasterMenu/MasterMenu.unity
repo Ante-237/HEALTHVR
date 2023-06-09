@@ -532,6 +532,64 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 104336439}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &120326192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 120326193}
+  - component: {fileID: 120326194}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &120326193
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120326192}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -112.62469, y: -27.757223, z: 166.49275}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &120326194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120326192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b40b756aace7f42a4593532696ef79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneNames: {fileID: 11400000, guid: eb1a3a82c1f2c944da4265322b4feb72, type: 2}
+  toggles:
+  - {fileID: 5027012008445501332}
+  - {fileID: 2092310815}
+  - {fileID: 882365508}
+  - {fileID: 1059978280}
+  - {fileID: 1581056841}
+  - {fileID: 37118857}
+  AnatomyRoomIndex: 7
+  EquipmentRoom: 1
+  SurgeryLabs: 1
+  SurgeryRecordingsLab: 1
+  MultiplayerRoom: 1
+  AIRoom: 1
 --- !u!1 &163373437
 GameObject:
   m_ObjectHideFlags: 0
@@ -13516,19 +13574,7 @@ MonoBehaviour:
   m_Group: {fileID: 7920820597124188803}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6789563719318522497}
-        m_TargetAssemblyTypeName: Oculus.Interaction.Samples.SceneLoader, Oculus.Interaction.OVR.Samples
-        m_MethodName: Load
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: SubMenuAnatomy
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 1
   _clearStateOnDrag: 0
 --- !u!4 &5042709199269809501
