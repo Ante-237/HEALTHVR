@@ -10307,7 +10307,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 641985070}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.01, z: -2.35}
+  m_LocalPosition: {x: 0, y: -0.01, z: -3.002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -43958,6 +43958,7 @@ GameObject:
   - component: {fileID: 5027012008445501332}
   - component: {fileID: 4849964606055143748}
   - component: {fileID: 6789563719318522496}
+  - component: {fileID: 6789563719318522497}
   m_Layer: 5
   m_Name: Toggle
   m_TagString: Untagged
@@ -45140,7 +45141,19 @@ MonoBehaviour:
   m_Group: {fileID: 7920820597124188803}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6789563719318522497}
+        m_TargetAssemblyTypeName: Oculus.Interaction.Samples.SceneLoader, Oculus.Interaction.OVR.Samples
+        m_MethodName: Load
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: A1_1_Test
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
   _clearStateOnDrag: 0
 --- !u!4 &5042709199269809501
@@ -46836,6 +46849,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &6789563719318522497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4527505265619351659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c4c1b38c49ffa449b585d54fcdc4a8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6953104562017237685
 MonoBehaviour:
   m_ObjectHideFlags: 0

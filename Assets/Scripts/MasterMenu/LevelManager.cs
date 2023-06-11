@@ -14,7 +14,7 @@ namespace aptXR.MasterMenu
 
 
         [Header("Toggles Menu's")]
-        [SerializeField] private Toggle[] toggles = new Toggle[6];
+        [SerializeField] private Toggle[] toggles = new Toggle[7];
 
         private SceneLoader sceneLoader;
 
@@ -25,6 +25,7 @@ namespace aptXR.MasterMenu
         [SerializeField] private int SurgeryRecordingsLab = 1;
         [SerializeField] private int MultiplayerRoom = 1;
         [SerializeField] private int AIRoom = 1;
+        [SerializeField] private int microBiologyRoom = 8;
 
 
 
@@ -33,12 +34,14 @@ namespace aptXR.MasterMenu
 
             try
             {
-                toggles[0].onValueChanged.AddListener(loadAnatomyRoom);
-                toggles[1].onValueChanged.AddListener(loadEquipmentRoom);
-                toggles[2].onValueChanged.AddListener(loadSurgeryLabs);
-                toggles[3].onValueChanged.AddListener(loadMultiplayerRoom);
-                toggles[4].onValueChanged.AddListener(LoadSurgeryRecordingLabs);
-                toggles[5].onValueChanged.AddListener(loadAIRoom);
+                toggles[0].onValueChanged.AddListener(loadMicroBiology);
+                toggles[1].onValueChanged.AddListener(loadAnatomyRoom);
+                toggles[2].onValueChanged.AddListener(loadEquipmentRoom);
+                toggles[3].onValueChanged.AddListener(loadSurgeryLabs);
+                toggles[4].onValueChanged.AddListener(loadMultiplayerRoom);
+                toggles[5].onValueChanged.AddListener(LoadSurgeryRecordingLabs);
+                toggles[6].onValueChanged.AddListener(loadAIRoom);
+             
             }catch(System.NullReferenceException)
             {
                 Debug.LogWarning("The Toggles In Level Manager : MasterMenu Have not been Assigned");
@@ -64,16 +67,28 @@ namespace aptXR.MasterMenu
         // TODO link to anatomy room main menu
         void loadAnatomyRoom(bool value)
         {
-            if (toggles[0].isOn)
+            if (toggles[1].isOn)
             {
                 loadAScene(AnatomyRoomIndex);
             }
         }
 
+        //TODO
+        void loadMicroBiology(bool value)
+        {
+            if (toggles[0].isOn)
+            {
+                loadAScene(microBiologyRoom);
+            }else if (value)
+            {
+                loadAScene(microBiologyRoom);
+            }
+        }
+        
         // TODO 
         void loadEquipmentRoom(bool value)
         {
-            if (toggles[1].isOn)
+            if (toggles[2].isOn)
             {
                 loadAScene(EquipmentRoom);
             }
@@ -82,7 +97,7 @@ namespace aptXR.MasterMenu
         // TODO
         void loadSurgeryLabs(bool value)
         {
-            if (toggles[2].isOn)
+            if (toggles[3].isOn)
             {
                 loadAScene(SurgeryLabs);
             }
@@ -100,7 +115,7 @@ namespace aptXR.MasterMenu
         // TODO
         void loadMultiplayerRoom(bool value)
         {
-          if (toggles[3].isOn)
+          if (toggles[5].isOn)
             {
                 loadAScene(MultiplayerRoom);
             }
@@ -109,7 +124,7 @@ namespace aptXR.MasterMenu
         // TODO
         void loadAIRoom(bool value)
         {
-            if (toggles[5].isOn)
+            if (toggles[6].isOn)
             {
                 loadAScene(AIRoom);
             }
@@ -118,13 +133,14 @@ namespace aptXR.MasterMenu
         // TODO
         private void OnDestroy()
         {
+            toggles[0].onValueChanged.RemoveListener(loadMicroBiology);
+            toggles[1].onValueChanged.RemoveListener(loadAnatomyRoom);
+            toggles[2].onValueChanged.RemoveListener(loadEquipmentRoom);
+            toggles[3].onValueChanged.RemoveListener(loadSurgeryLabs);
+            toggles[4].onValueChanged.RemoveListener(loadMultiplayerRoom);
+            toggles[5].onValueChanged.RemoveListener(LoadSurgeryRecordingLabs);
+            toggles[6].onValueChanged.RemoveListener(loadAIRoom);
 
-            toggles[0].onValueChanged.RemoveListener(loadAnatomyRoom);
-            toggles[1].onValueChanged.RemoveListener(loadEquipmentRoom);
-            toggles[2].onValueChanged.RemoveListener(loadSurgeryLabs);
-            toggles[3].onValueChanged.RemoveListener(loadMultiplayerRoom);
-            toggles[4].onValueChanged.RemoveListener(LoadSurgeryRecordingLabs);
-            toggles[5].onValueChanged.RemoveListener(loadAIRoom);
         }
 
 
