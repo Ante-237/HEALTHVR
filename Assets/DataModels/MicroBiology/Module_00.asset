@@ -15,7 +15,7 @@ MonoBehaviour:
   CourseName: Introduction to Cells
   needHands: 1
   needControllers: 1
-  SceneName: 
+  SceneName: A1_1_Test
   courseDuration: 20
   courseCompleted: 0
   courseXP: 15

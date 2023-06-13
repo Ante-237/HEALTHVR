@@ -36,7 +36,7 @@ namespace aptXR.Microbiology
         // send little vibration
         public void slideHaptic()
         {
-            OVRInput.SetControllerVibration(frequencyVibrat, amplitudeVibrat, OVRInput.Controller.Active);
+          //  OVRInput.SetControllerVibration(frequencyVibrat, amplitudeVibrat, OVRInput.Controller.Active);
            
         }
 
