@@ -11,7 +11,8 @@ namespace aptXR.Microbiology
         [SerializeField] private SceneNames sceneNames;
 
 
-
+        public float frequencyVibrat = 0.09f;
+        public float amplitudeVibrat =  0.01f;
 
         private SceneLoader sceneLoader;
 
@@ -29,6 +30,14 @@ namespace aptXR.Microbiology
         public void LoadMasterMenu()
         {
             sceneLoader.Load(sceneNames.AllScenes[1]);
+        }
+
+
+        // send little vibration
+        public void slideHaptic()
+        {
+            OVRInput.SetControllerVibration(frequencyVibrat, amplitudeVibrat, OVRInput.Controller.Active);
+           
         }
 
     }
