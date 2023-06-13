@@ -15,6 +15,10 @@ namespace aptXR.Microbiology
         [SerializeField] private Toggle[] courseToggles = new Toggle[21];
 
 
+        [Header("Selector Toggles")]
+        [SerializeField] private Toggle[] selectorToggles = new Toggle[2];
+
+
         [Header("Locked Icons")]
         [SerializeField] private Image[] dimImages  = new Image[21];
         [SerializeField] private Image[] LockImages = new Image[21];
@@ -41,10 +45,21 @@ namespace aptXR.Microbiology
             courseToggles[0].onValueChanged.AddListener(checkSelectedCourse);
             courseToggles[0].onValueChanged.AddListener(coursePanel.showPanel);
             courseToggles[0].onValueChanged.AddListener(coursePanel.hidePanel);
-
+            //ListenerSelectorComponents();
 
             // button panel
             StartCourse.onClick.AddListener(loadCourseSelected);
+        }
+
+        private void ListenerSelectorComponents()
+        {
+            selectorToggles[0].onValueChanged.AddListener(coursePanel.slidePanelInCourses);
+            selectorToggles[0].onValueChanged.AddListener(coursePanel.slidePanelOutProfile);
+
+
+            selectorToggles[1].onValueChanged.AddListener(coursePanel.slidePanelInProfile);
+            selectorToggles[1].onValueChanged.AddListener(coursePanel.slidePanelOutCourses);
+            
         }
 
         private void Start()
@@ -108,19 +123,27 @@ namespace aptXR.Microbiology
             }
         }
 
+
+        private void RemoveListenerSelector()
+        {
+            selectorToggles[0].onValueChanged.RemoveListener(coursePanel.slidePanelInCourses);
+            selectorToggles[0].onValueChanged.RemoveListener(coursePanel.slidePanelOutProfile);
+
+
+            selectorToggles[1].onValueChanged.RemoveListener(coursePanel.slidePanelInProfile);
+            selectorToggles[1].onValueChanged.RemoveListener(coursePanel.slidePanelOutCourses);
+        }
+
         private void OnDisable()
         {
             courseToggles[0].onValueChanged.RemoveListener(checkSelectedCourse);
             courseToggles[0].onValueChanged.RemoveListener(coursePanel.showPanel);
             courseToggles[0].onValueChanged.RemoveListener(coursePanel.hidePanel);
-
             StartCourse.onClick.RemoveListener(loadCourseSelected);
 
+           // RemoveListenerSelector();
+
         }
-
-
-
-
 
     }
 }

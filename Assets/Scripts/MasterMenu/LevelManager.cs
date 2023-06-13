@@ -138,7 +138,7 @@ namespace aptXR.MasterMenu
         //TODO
         void loadMicroBiology(bool value)
         {
-            if (toggles[0].isOn)
+            if (!MasterMenuSettings.Unlocked[0])
             {
                 loadAScene(microBiologyRoom);
             }else if (value)
