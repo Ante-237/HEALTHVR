@@ -34,6 +34,13 @@ namespace aptXR.Microbiology.module_00
         [SerializeField] private List<string> PointerDisplays = new List<string>();
         [SerializeField] private List<bool> Tasks = new List<bool>();
 
+
+        [Header("DropPointer")]
+        [SerializeField] private GameObject DropPointerPrefab;
+        [SerializeField] private List<Transform> DropPointerPositions = new List<Transform>();
+        [SerializeField] private List<string> DropPointerDisplays = new List<string>();
+        [SerializeField] private List<bool> DropTasks = new List<bool> ();
+
         [Header("Objectives Board")]
         [SerializeField] private GameObject ObjectivesBoard;
 
@@ -59,9 +66,38 @@ namespace aptXR.Microbiology.module_00
         [Header("Reference to Bot")]
         [SerializeField] private GameObject _bot;
 
+        [Header("Sound Control Reference")]
+        [SerializeField] private Module_00_Sound _sound_Module;
+
 
         private SceneLoader _sceneLoader;
         private GameObject __pointerPrefab;
+        private GameObject __dropPointerPrefab;
+#if UNITY_EDITOR
+        private void NullTesting()
+        {
+            
+            this.AssertCollectionField(DropPointerPositions, nameof(DropPointerPositions));
+            this.AssertCollectionField(DropPointerDisplays, nameof(DropPointerPositions));
+            this.AssertCollectionField(DropTasks, nameof(DropTasks));
+            this.AssertCollectionField(PointerPositions, nameof(PointerPositions));
+            this.AssertCollectionField(PointerDisplays, nameof(PointerDisplays));
+            this.AssertCollectionField(Tasks, nameof(Tasks));
+
+            this.AssertField(_bot, nameof(_bot));
+            this.AssertField(_moduel_00, nameof(_moduel_00));
+            this.AssertField(_sound_Module, nameof(_sound_Module));
+            this.AssertField(RightHand, nameof(RightHand));
+            this.AssertField(LeftHand, nameof(LeftHand));
+            this.AssertField(PointerPrefab, nameof(PointerPrefab));
+            this.AssertField(DropPointerPrefab, nameof(DropPointerPrefab));
+        }
+
+        private void OnEnable()
+        {
+            NullTesting();
+        }
+#endif
 
         private void Start()
         {
@@ -71,15 +107,28 @@ namespace aptXR.Microbiology.module_00
         private void FirstStep()
         {
             UpdatePointer(PointerPositions[0].transform, PointerDisplays[0]);
-            StartCoroutine(ObjectivesDisable());                
+            StartCoroutine(ObjectivesDisable());
+            Invoke("playCircleGuideSound", 5.0f);
+            Invoke("playReadObjectiveSound", 20.0f);
         }
 
         private void StepProgressBoard()
         {
             UpdatePointer(PointerPositions[1].transform, PointerDisplays[1]);
+            Invoke("playProgressGuideSound", 5.0f);
             StartCoroutine(ProgressPointerChange());
         }
+
+        // first tutorial for drop pointer
+        private void DroppingIndicator()
+        {
+            UpdateDropPointer(DropPointerPositions[0].transform, DropPointerDisplays[0]);
+            Invoke("playCircleCenterSound", 5.0f);
+            StartCoroutine(DropPointerDisable());
+
+        }
         
+    
         private void UpdatePointer(Transform __position, string __content)
         {
          
@@ -92,19 +141,35 @@ namespace aptXR.Microbiology.module_00
             _contentText.text = __content;
         }
 
+        private void UpdateDropPointer(Transform __position , string __content)
+        {
+           __dropPointerPrefab = Instantiate(DropPointerPrefab, __position.position, Quaternion.identity);
+            __dropPointerPrefab.AddComponent<LookATTArget>();
+            __dropPointerPrefab.GetComponent<LookATTArget>()._toRotate = __dropPointerPrefab.transform;
+            __dropPointerPrefab.GetComponent<LookATTArget>()._target = CameraRig.centerEyeAnchor.transform;
+            TextMeshPro _contentText = __dropPointerPrefab.transform.GetComponentInChildren<TextMeshPro>() as TextMeshPro;
+            _contentText.text = __content;
+        }
+
+        IEnumerator DropPointerDisable()
+        {
+            yield return new WaitForSeconds(10.0f);
+            Destroy(__dropPointerPrefab);
+            // task one drop pointe done
+            DropTasks[0] = true;
+            UpdateProgress(3);
+
+        }
+
         IEnumerator ProgressPointerChange()
         {
-            yield return new WaitForSeconds(8.0f);
+            yield return new WaitForSeconds(12.0f);
             UpdateProgress(2);
             Destroy(__pointerPrefab);
             bot.SetIdleActions();
             BotStatus(false);
             Tasks[1] = true;
-        }
-
-        void BotStatus(bool value)
-        {
-            _bot.SetActive(value);
+            DroppingIndicator();
         }
 
         IEnumerator ObjectivesDisable()
@@ -120,6 +185,8 @@ namespace aptXR.Microbiology.module_00
             StepProgressBoard(); // start next steps
         }
 
+     
+
         private void UpdateProgress(int amount)
         {
             _moduel_00.ProgressAmount += amount;
@@ -133,9 +200,12 @@ namespace aptXR.Microbiology.module_00
                 _userActive = true;
             }
         }
+        void BotStatus(bool value)
+        {
+            _bot.SetActive(value);
+        }
 
-
-
+        /* event for side menu */
         public void ExitCourse()
         {
             _sceneLoader.Load(sceneNames.AllScenes[8]);
@@ -152,6 +222,8 @@ namespace aptXR.Microbiology.module_00
                 ObjectivesBoard.SetActive(true);
             }
         }
+
+
 
         private void Update()
         {
@@ -173,12 +245,39 @@ namespace aptXR.Microbiology.module_00
 
         private void InitializedTask()
         {
-            for(int i = 0; i < numberOfTasks; i++)
+            for(int i = 0; i < Tasks.Count; i++)
             {
                 Tasks[i] = false;
             }
+
+            for(int i = 0; i < DropTasks.Count; i++)
+            {
+                DropTasks[i] = false;
+            }
         }
 
+
+        /* Handles the playing of sounds */
+        public void playReadObjectiveSound()
+        {
+            _sound_Module.PlayObjectiveRead();
+        }
+
+        public void playCircleGuideSound()
+        {
+            _sound_Module.PlayCircleGuideRead();
+        }
+
+        public void playProgressGuideSound()
+        {
+            _sound_Module.PlayProgressRead();
+        }
+
+        public void playCircleCenterSound()
+        {
+            _sound_Module.PlayCircleDropGuideRead();
+        }
+      
 
         private void Awake()
         {
@@ -191,5 +290,7 @@ namespace aptXR.Microbiology.module_00
             bot.SetObjectivesActions();
         }
 
+
+       
     }
 }
