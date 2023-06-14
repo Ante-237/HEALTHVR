@@ -606,7 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af5558fb8bdc9be438db6ccf97abce13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volume: 0.685
+  volume: 1
   objectives:
   - {fileID: 8300000, guid: cc437de6766c56c4389fac4b591fe638, type: 3}
   progress:

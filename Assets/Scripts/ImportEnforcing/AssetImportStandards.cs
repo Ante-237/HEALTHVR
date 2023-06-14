@@ -62,10 +62,7 @@ namespace aptXR
                 textureImporter.textureCompression = TextureImporterCompression.CompressedLQ;
             }
 
-            if(textureImporter.textureType == TextureImporterType.NormalMap)
-            {
-                textureImporter.textureType = TextureImporterType.Default;
-            }
+            
 
 
 

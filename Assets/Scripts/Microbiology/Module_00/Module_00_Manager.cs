@@ -73,6 +73,7 @@ namespace aptXR.Microbiology.module_00
         private SceneLoader _sceneLoader;
         private GameObject __pointerPrefab;
         private GameObject __dropPointerPrefab;
+
 #if UNITY_EDITOR
         private void NullTesting()
         {
@@ -180,7 +181,7 @@ namespace aptXR.Microbiology.module_00
             Destroy(__pointerPrefab);
             // task one done
             Tasks[0] = true;
-            bot.SetMoveAway();
+          
             UpdateProgress(5);
             StepProgressBoard(); // start next steps
         }
@@ -266,6 +267,7 @@ namespace aptXR.Microbiology.module_00
         public void playCircleGuideSound()
         {
             _sound_Module.PlayCircleGuideRead();
+            bot.SetMoveAway();
         }
 
         public void playProgressGuideSound()
