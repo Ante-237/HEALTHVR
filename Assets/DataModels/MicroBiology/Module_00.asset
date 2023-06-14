@@ -13,6 +13,13 @@ MonoBehaviour:
   m_Name: Module_00
   m_EditorClassIdentifier: 
   CourseName: Introduction to Cells
+  CourseObjectives:
+  - Define a Cell
+  - 'Define the types of cells '
+  - Differentiate between animal and plant cells
+  - Define Eukaryotic and prokaryotic Cells
+  - Differences betweeen Eukaryotic and prokaryotic Cells
+  - Understand Structure of Animal Cells
   needHands: 1
   needControllers: 1
   SceneName: A1_1_Test
