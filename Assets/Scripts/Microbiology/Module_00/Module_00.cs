@@ -9,6 +9,7 @@ namespace aptXR.Microbiology.module_00
     //TODO : loads the objective panel
     //TODO : loads the name of the course in the background
     //TODO : Update progress bar
+
     
 
     public class Module_00: MonoBehaviour
@@ -30,6 +31,13 @@ namespace aptXR.Microbiology.module_00
         [Header("Progress Bar")]
         [SerializeField] private GameObject RootProgressBar;
         [SerializeField] private TextMeshProUGUI ProgressDisplay;
+
+
+        public int ProgressAmount
+        {
+            set { _progressAmount = value; }
+            get { return _progressAmount; }
+        }
         private int _progressAmount = 0;
 
 
@@ -75,7 +83,7 @@ namespace aptXR.Microbiology.module_00
         }
 
 
-        private void UpdateProgressBar()
+        public void UpdateProgressBar()
         {
             if(_progressAmount >= 0 && _progressAmount <= 100) {
                 ProgressDisplay.text = _progressAmount + "%";
