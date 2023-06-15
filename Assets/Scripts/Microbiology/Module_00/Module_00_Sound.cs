@@ -19,6 +19,7 @@ namespace aptXR.Microbiology.module_00
         [SerializeField] private AudioClip[] progress = new AudioClip[1];
         [SerializeField] private AudioClip[] circleGuideRead = new AudioClip[1];
         [SerializeField] private AudioClip[] circleNoCenterRead = new AudioClip[1];
+        [SerializeField] private AudioClip[] CompletionRead = new AudioClip[1];
 
 #if UNITY_EDITOR
         void NullTesting()
@@ -27,6 +28,7 @@ namespace aptXR.Microbiology.module_00
             this.AssertCollectionField(progress, nameof(progress));
             this.AssertCollectionField(circleGuideRead, nameof(circleGuideRead));
             this.AssertCollectionField(circleNoCenterRead, nameof(circleNoCenterRead)); 
+            this.AssertCollectionField(CompletionRead, nameof(CompletionRead));
         }
 
         private void OnEnable()
@@ -67,6 +69,13 @@ namespace aptXR.Microbiology.module_00
         public void PlayCircleDropGuideRead()
         {
             audioTrigger.InjectAudioClips(circleNoCenterRead);
+            audioTrigger.PlayAudio();
+            audioTrigger.Volume = volume;
+        }
+
+        public void PlayEndofCourse()
+        {
+            audioTrigger.InjectAudioClips(CompletionRead);
             audioTrigger.PlayAudio();
             audioTrigger.Volume = volume;
         }

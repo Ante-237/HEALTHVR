@@ -16,7 +16,11 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 0af0cec538f9e73478aee39ee969d43e
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: a8dfed97030c30b449f78a96164a9a00
+    m_Address: Assets/prefab/MicroBiology/module__00/A cell.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 083a645f49457be468e3f77b1944ede4, type: 2}
   m_SchemaSet:

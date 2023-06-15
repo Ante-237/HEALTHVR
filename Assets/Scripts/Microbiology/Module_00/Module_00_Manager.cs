@@ -7,6 +7,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UIElements;
+using UnityEngine.AddressableAssets;
+using UnityEngine.Events;
+using TMPro.Examples;
 
 namespace aptXR.Microbiology.module_00
 {
@@ -53,6 +56,13 @@ namespace aptXR.Microbiology.module_00
         [SerializeField] private float _objectiveBoardTime = 90;
 
 
+        [Header("Cell Data")]
+        [SerializeField] private AssetReferenceGameObject CellPrefab;
+        [SerializeField] private GameObject CellBoard;
+        [SerializeField] private List<string> cellInformation = new List<string>();
+
+
+
 
         [Header("Task Number")]
         [SerializeField] private int numberOfTasks = 10;
@@ -73,6 +83,9 @@ namespace aptXR.Microbiology.module_00
         private SceneLoader _sceneLoader;
         private GameObject __pointerPrefab;
         private GameObject __dropPointerPrefab;
+        private GameObject _cell;
+        private TriggerBox _triggerBox;
+        private bool FirstRun = false;
 
 #if UNITY_EDITOR
         private void NullTesting()
@@ -84,6 +97,7 @@ namespace aptXR.Microbiology.module_00
             this.AssertCollectionField(PointerPositions, nameof(PointerPositions));
             this.AssertCollectionField(PointerDisplays, nameof(PointerDisplays));
             this.AssertCollectionField(Tasks, nameof(Tasks));
+            this.AssertCollectionField(cellInformation, nameof(cellInformation));
 
             this.AssertField(_bot, nameof(_bot));
             this.AssertField(_moduel_00, nameof(_moduel_00));
@@ -92,6 +106,8 @@ namespace aptXR.Microbiology.module_00
             this.AssertField(LeftHand, nameof(LeftHand));
             this.AssertField(PointerPrefab, nameof(PointerPrefab));
             this.AssertField(DropPointerPrefab, nameof(DropPointerPrefab));
+            this.AssertField(CellBoard, nameof(CellBoard));
+            
         }
 
         private void OnEnable()
@@ -103,6 +119,12 @@ namespace aptXR.Microbiology.module_00
         private void Start()
         {
             FirstStep();         
+        }
+
+
+        private void LoadCellAsset()
+        {
+            CellPrefab.LoadAssetAsync();
         }
 
         private void FirstStep()
@@ -124,10 +146,124 @@ namespace aptXR.Microbiology.module_00
         private void DroppingIndicator()
         {
             UpdateDropPointer(DropPointerPositions[0].transform, DropPointerDisplays[0]);
-            Invoke("playCircleCenterSound", 5.0f);
+            Invoke("playCircleCenterSound", 3.0f);
             StartCoroutine(DropPointerDisable());
 
         }
+
+
+
+        // event for cells picking
+        private UnityEvent selectedEvent;
+        private UnityEvent unselectedEvent;
+
+        [SerializeField] private GameObject _TriggerBox;
+        
+
+        // show pickup location
+        private void CellLearn()
+        {
+            UpdatePointer(PointerPositions[2].transform, PointerDisplays[2]);
+            selectedEvent = _cell.GetComponent<InteractableUnityEventWrapper>().WhenSelect;
+            unselectedEvent = _cell.GetComponent<InteractableUnityEventWrapper>().WhenUnselect;
+            selectedEvent.AddListener(DefineACell);
+            unselectedEvent.AddListener(CellFunctions);
+        }
+
+        // instantiate cell and keep reference
+        private void CreateCell()
+        {
+            _cell = Instantiate(CellPrefab.Asset, PointerPositions[2].transform.position, Quaternion.identity) as GameObject;
+        }
+
+        private bool _firstTempLook = false;
+
+        public void DefineACell()
+        {
+            CellBoard.SetActive(true);
+            TextMeshProUGUI cellBoardText = CellBoard.GetComponentInChildren<TextMeshProUGUI>();
+            cellBoardText.text = cellInformation[0].ToString();
+            Destroy(__pointerPrefab);
+           
+            GameObject lastChild = _cell.transform.GetChild(5).gameObject;
+           
+
+            if(!_firstTempLook)
+            {
+                UpdateProgress(40);
+                lastChild.AddComponent<LookATTArget>();
+                LookATTArget tempLook = lastChild.GetComponent<LookATTArget>();
+                tempLook._target = CameraRig.centerEyeAnchor;
+                tempLook._toRotate = lastChild.transform;
+                _firstTempLook = true;
+            }
+           
+
+            lastChild.SetActive(true);
+
+        }
+
+        private bool firstPointer = false;
+
+        public void CellFunctions()
+        {
+            if(!firstPointer)
+            {
+                UpdateDropPointer(DropPointerPositions[1].transform, DropPointerDisplays[1]);
+                firstPointer = true;
+                _TriggerBox.SetActive(true);
+                UpdateProgress(10);
+            }
+
+
+            GameObject lastChild = _cell.transform.GetChild(5).gameObject;
+            lastChild.SetActive(false);
+
+        }
+
+
+        // show drop down location
+        private void DropDownLocationCell()
+        {
+            Destroy(__dropPointerPrefab);
+            TextMeshProUGUI cellBoardText = CellBoard.GetComponentInChildren<TextMeshProUGUI>();
+            cellBoardText.text = cellInformation[1].ToString();
+            UpdateProgress(40);
+            UpdatePointer(PointerPositions[3], PointerDisplays[3]);
+            StartCoroutine(LastStep());
+
+        }
+
+
+        // completion board
+        [SerializeField] private GameObject completionBoard;
+
+        IEnumerator LastStep()
+        {
+            yield return new WaitForSeconds(10);
+            Destroy(__pointerPrefab);
+            UpdateProgress(20);
+           // CellBoard.SetActive(false);
+            completionBoard.SetActive(true);
+            selectedEvent.RemoveListener(DefineACell);
+            unselectedEvent.RemoveListener(CellFunctions);
+            ExitStep();
+        }
+
+        public void endofCourseSound()
+        {
+            _sound_Module.PlayEndofCourse();
+         
+        }
+
+        public void ExitStep()
+        {
+            Invoke("endofCourseSound", 3.0f);
+            UpdatePointer(PointerPositions[4], PointerDisplays[4]);
+
+       }
+        
+
         
     
         private void UpdatePointer(Transform __position, string __content)
@@ -152,14 +288,17 @@ namespace aptXR.Microbiology.module_00
             _contentText.text = __content;
         }
 
+       
+
         IEnumerator DropPointerDisable()
         {
             yield return new WaitForSeconds(10.0f);
             Destroy(__dropPointerPrefab);
             // task one drop pointe done
+            CreateCell();
+            CellLearn();
             DropTasks[0] = true;
             UpdateProgress(3);
-
         }
 
         IEnumerator ProgressPointerChange()
@@ -171,6 +310,9 @@ namespace aptXR.Microbiology.module_00
             BotStatus(false);
             Tasks[1] = true;
             DroppingIndicator();
+
+            //load cell prefab
+            LoadCellAsset();
         }
 
         IEnumerator ObjectivesDisable()
@@ -231,6 +373,8 @@ namespace aptXR.Microbiology.module_00
             CustomUpdate();
         }
 
+      
+
         private void CustomUpdate()
         {
             FrameCount++;
@@ -240,6 +384,13 @@ namespace aptXR.Microbiology.module_00
                 // call methods here that needs free updates per frame
 
                 checkIfUserIsActive();
+
+                // if the cell is dropped in the right position;
+                if (_triggerBox.TriggerEntered && !FirstRun)
+                {
+                    DropDownLocationCell();
+                    FirstRun = true;
+                }
                
             }
         }
@@ -285,6 +436,8 @@ namespace aptXR.Microbiology.module_00
         {
            gameObject.AddComponent<SceneLoader>();
            _sceneLoader = gameObject.GetComponent<SceneLoader>();
+            _triggerBox = _TriggerBox.GetComponent<TriggerBox>();
+           
 
             InitializedTask();
 
@@ -292,7 +445,10 @@ namespace aptXR.Microbiology.module_00
             bot.SetObjectivesActions();
         }
 
+        private void OnDisable()
+        {
+            CellPrefab.ReleaseAsset();
+        }
 
-       
     }
 }
