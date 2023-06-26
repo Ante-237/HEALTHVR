@@ -12,7 +12,8 @@ namespace aptXR
         [MenuItem("Tools/Custom Editor")]
         public static void ShowWindow()
         {
-            GetWindow<CustomEditor>("Custom Editor");
+            EditorWindow.GetWindow(typeof(CustomEditor));
+
         }
 
 
@@ -25,11 +26,13 @@ namespace aptXR
         void OnGUI()
         {
             GUILayout.Label("Base Settings", EditorStyles.boldLabel);
-            myString = EditorGUILayout.TextField("Scene Names: ", sceneNames.AllScenes[0]);
+            myString = EditorGUILayout.TextField("Scene Names: ", myString);
             groupEnabled = EditorGUILayout.BeginToggleGroup("Optional Settings", groupEnabled);
             myBool = EditorGUILayout.Toggle("Toggle", myBool);
             myFloat = EditorGUILayout.Slider("Slider", myFloat, -3, 3);
             EditorGUILayout.EndToggleGroup();
         }
     }
+
+    
 }
