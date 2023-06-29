@@ -65,9 +65,6 @@ public class HandCutControl : MonoBehaviour
     {
         theGrabbable.InjectOptionalOneGrabTransformer(translateObject);
         theGrabbable.TransferOnSecondSelection = true;
-
-  
-
     }
 
     void SetupConstraint()
