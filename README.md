@@ -1,2 +1,2 @@
-# HEALTHVR
+# VR PROJECT
  
